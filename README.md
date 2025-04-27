@@ -288,6 +288,6 @@ Proje hakkında herhangi bir sorunuz varsa veya daha fazla bilgi almak isterseni
 
 <div align="center">
 
-© 2024 | S4E DevOps Stajyer Adayı Mülakat Projesi
+© 2025 | S4E DevOps Stajyer Adayı Mülakat Projesi
 
 </div>
