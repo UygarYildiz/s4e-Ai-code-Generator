@@ -29,4 +29,4 @@ resources:
     memory: 256Mi
 
 secrets:
-  geminiApiKey: "AIzaSyDJC0UxDZ9FeYgK8xgITj4T3mXjvYEQwOA"
+  geminiApiKey: "Gemini Key (Apı anahtarımı bilerek yazmadım.) API KEY Buraya girilecek."
