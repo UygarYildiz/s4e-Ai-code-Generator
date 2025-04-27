@@ -275,9 +275,7 @@ Bu proje, S4E şirketinin DevOps Stajyer pozisyonu için mülakat projesi olarak
 3. **Çıktının İşlenmesi**: Modelden gelen cevaptan kod bloğu ve başlık ayrıştırılmıştır.
 4. **Uygulamanın Dağıtımı**: Uygulama Minikube üzerinde çalışacak şekilde hazırlanmış, Docker imajı DockerHub'a yüklenmiş ve Helm chart kullanılarak dağıtılmıştır.
 
-## 📃 Lisans
 
-[MIT Lisansı](LICENSE)
 
 ## 💬 İletişim
 
