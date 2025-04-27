@@ -6,9 +6,9 @@ import google.generativeai as genai
 class LLMService:
 
     def __init__(self):
-        # Varsayılan olarak Gemini kullan, ancak hata durumunda Ollama'ya geç
+        # Varsayılan olarak Gemini kullanır , ancak hata durumunda Ollama'ya geçiş yapılır.
         try:
-            # Use Gemini
+
             gemini_api_key = os.environ.get('GEMINI_API_KEY')
             if not gemini_api_key:
                 raise ValueError("Gemini API anahtarı bulunamadı")
@@ -93,49 +93,41 @@ class LLMService:
             print(f"Gemini API anahtarı: {os.environ.get('GEMINI_API_KEY')[:5]}...")
             print(f"Kullanılan model: {self.model}")
 
-            # Gemini API'yi yeniden yapılandır (her seferinde)
+            # Gemini API'yi yeniden yapılandır
             gemini_api_key = os.environ.get('GEMINI_API_KEY')
             genai.configure(api_key=gemini_api_key)
 
-            # Farklı model adlarını deneyelim
-            try_models = ['gemini-pro', 'gemini-1.5-flash', 'gemini-1.0-pro']
+            #  self.model (gemini 2.5 flash) kullanılıyor.
+            print(f"Model kullanılıyor: {self.model}")
+            model = genai.GenerativeModel(self.model)
 
-            for model_name in try_models:
-                try:
-                    print(f"Model deneniyor: {model_name}")
-                    model = genai.GenerativeModel(model_name)
+            # Gemini modeli için yapılandırma
+            generation_config = {
+                "temperature": 0.7,
+                "top_p": 0.95,
+                "top_k": 40,
+                "max_output_tokens": 2048,
+            }
 
-                    # Gemini modeli için yapılandırma
-                    generation_config = {
-                        "temperature": 0.7,
-                        "top_p": 0.95,
-                        "top_k": 40,
-                        "max_output_tokens": 2048,
-                    }
+            # Birleştirilmiş prompt. Sistem prompptu ile user prommpt birleştirildi.
+            # Geminide OpenAI a göre biraz daha farklı işliyor.
+            birlestirilmis_prompt = f"{system_prompt}\n\nKullanıcı İsteği: {user_prompt}"
 
-                    # Birleştirilmiş prompt
-                    birlestirilmis_prompt = f"{system_prompt}\n\nKullanıcı İsteği: {user_prompt}"
+            # API çağrısı
+            response = model.generate_content(
+                birlestirilmis_prompt,
+                generation_config=generation_config
+            )
 
-                    # API çağrısı
-                    response = model.generate_content(
-                        birlestirilmis_prompt,
-                        generation_config=generation_config
-                    )
+            # Yanıt metni
+            response_text = response.text
+            print(f"Başarılı yanıt alındı, model: {self.model}")
 
-                    # Yanıt metni
-                    response_text = response.text
-                    print(f"Başarılı yanıt alındı, model: {model_name}")
-
-                    # Yanıtı ayrıştır
-                    return self._parse_response(response_text)
-
-                except Exception as model_error:
-                    print(f"Model hatası ({model_name}): {str(model_error)}")
-                    if model_name == try_models[-1]:  # Son model denemesiyse
-                        raise  # Hatayı yeniden fırlat
+            # Yanıtı ayrıştır
+            return self._parse_response(response_text)
 
         except Exception as e:
-            print(f"Gemini API hatası: {str(e)}")
+            print(f"Gemini API hatası ({self.model}): {str(e)}")
             raise Exception(f"Gemini API hatası: {str(e)}")
 
     def _generate_with_ollama(self, system_prompt, user_prompt):

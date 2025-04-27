@@ -1,4 +1,4 @@
-# S4E tarafından sağlanan Task sınıfının yer tutucu implementasyonu
+# S4E tarafından sağlanan örnek  Task  ve Job sınıfları
 class Task:
     """
     Task sınıfı için yer tutucu.
