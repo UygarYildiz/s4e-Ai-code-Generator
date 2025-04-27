@@ -1,0 +1,32 @@
+replicaCount: 1
+
+image:
+  repository: s4e-ai-code-generator
+  tag: latest
+  pullPolicy: Never
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 5000
+
+ingress:
+  enabled: true
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  hosts:
+    - host: ""
+      paths:
+        - path: /
+          pathType: Prefix
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 200m
+    memory: 256Mi
+
+secrets:
+  geminiApiKey: "AIzaSyDJC0UxDZ9FeYgK8xgITj4T3mXjvYEQwOA"
