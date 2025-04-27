@@ -10,7 +10,7 @@ _S4E Şirketi DevOps Stajyer Adayı Mülakat Projesi_
 [![Kubernetes](https://img.shields.io/badge/Kubernetes-Configured-326CE5.svg)](https://kubernetes.io/)
 [![Gemini](https://img.shields.io/badge/Gemini%20AI-2.5%20Flash-orange.svg)](https://ai.google.dev/)
 
-<img src="https://via.placeholder.com/800x400.png?text=Yapay+Zeka+Destekli+Kod+%C3%9Cretici" alt="Proje Görseli" width="600"/>
+<img src="screenshots/Proje_Gorseli.png" alt="Proje Görseli" width="600"/>
 
 </div>
 
